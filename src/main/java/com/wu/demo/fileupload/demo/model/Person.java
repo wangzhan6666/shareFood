@@ -21,7 +21,7 @@ public class Person {
     private int pid;
 
     @Column(name = "pname")
-    private String name;
+    private String pname;
 
     @Column(name = "password")
     private String password;
@@ -38,11 +38,10 @@ public class Person {
     public Person() {
     }
 
-    public Person(String name, String password) {
-        this.name = name;
+    public Person(String pname, String password) {
+        this.pname = pname;
         this.password = password;
     }
-
 
     public int getPid() {
         return pid;
@@ -52,12 +51,12 @@ public class Person {
         this.pid = pid;
     }
 
-    public String getName() {
-        return name;
+    public String getPname() {
+        return pname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 
     public String getPassword() {

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +82,6 @@ public class TestController {
             msg = "上传失败！";
 
         }*//*
-
-
-
     //List<FileModel> list = new ArrayList<FileModel>();
         String name ;
         for (MultipartFile file : files) {
@@ -117,14 +115,20 @@ public class TestController {
     }*/
 
     @RequestMapping("fileUpload")
-    public String upload(@RequestParam("fileName") MultipartFile[] files, @RequestParam("description") String description, Map<String, Object> map, Model model){
+    public String upload(@RequestParam("fileName") MultipartFile[] files, @RequestParam("description") String description,
+                         Map<String, Object> map, Model model, HttpSession session){
+
+        Object pname = session.getAttribute("pname");
+        if (pname == null){
+            return "login";
+        }
 
         // 要上传的目标文件存放路径
         String localPath = "D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/img";
 
         Person person = new Person();
         person.setPid(1);
-        person.setName("wang");
+        person.setPname("wang");
         person.setPassword("wang");
 
         //List<Img> list = new ArrayList<Img>();

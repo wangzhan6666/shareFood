@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,13 @@ public class IndexController {
     MessRepository messRepository;
 
     @RequestMapping(value = "/")
-    public String toIndex(Model model){
+    public String toIndex(Model model, HttpSession session){
+
+        /*Object pname = session.getAttribute("pname");
+        if (pname == null){
+            return "login";
+        }*/
+
         List<Mess> messes = messRepository.selectAllMess();
 
         List<Mess> newMesses = null;
