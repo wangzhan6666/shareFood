@@ -36,9 +36,38 @@ public class LoginAndRegisterController {
         //判断输入的密码和查找出来的密码是否相等
         if (password.equals(person.getPassword())){
             session.setAttribute("pname",pname);
-            return "index";
+            return "forward:/";
         }
         String message = "请再次确认用户名或密码！！";
+
+        model.addAttribute("message",message);
+        return "login";
+    }
+
+    @RequestMapping(value = "/toregister")
+    public String toRegister(){
+        return "register";
+    }
+
+    @RequestMapping(value = "/register")
+    public String register(@RequestParam("pname") String pname, @RequestParam("password") String password,
+                        HttpSession session, Model model){
+
+        //根据用户名查找用户
+        Person person = personRepository.selectPasswordByPname(pname);
+
+        System.out.println("person.getPname():::    "+person);
+
+        String message;
+        //判断输入的密码和查找出来的密码是否相等
+        if (person == null){
+            personRepository.addPerson(pname,password);
+            message = "注册成功，请登录！！！";
+
+            model.addAttribute("message",message);
+            return "login";
+        }
+        message = "该用户已经存在，请登录！！！";
 
         model.addAttribute("message",message);
         return "login";

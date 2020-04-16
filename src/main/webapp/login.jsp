@@ -17,6 +17,7 @@
             用户名：<input type="text" name="pname" placeholder="请输入用户名" />
             密码：  <input type="password" name="password" placeholder="请输入密码" />
 
+            <a href="/toregister">注册</a>
             <button type="submit">登录</button>
         </form>
 

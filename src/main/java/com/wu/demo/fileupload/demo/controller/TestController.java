@@ -55,7 +55,14 @@ public class TestController {
         return "test";
     }
     @RequestMapping("test2")
-    public String toUpload2(){
+    public String toUpload2(HttpSession session, Model model){
+        Object pname = session.getAttribute("pname");
+        if (pname == null){
+            String message = "你没登录，还想发表文章，做梦呢吧！！";
+            model.addAttribute("message",message);
+            return "login";
+        }
+
         return "test2";
     }
 
@@ -116,7 +123,7 @@ public class TestController {
 
     @RequestMapping("fileUpload")
     public String upload(@RequestParam("fileName") MultipartFile[] files, @RequestParam("description") String description,
-                         Map<String, Object> map, Model model, HttpSession session){
+                         Model model, HttpSession session){
 
         Object pname = session.getAttribute("pname");
         if (pname == null){
@@ -126,10 +133,7 @@ public class TestController {
         // 要上传的目标文件存放路径
         String localPath = "D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/img";
 
-        Person person = new Person();
-        person.setPid(1);
-        person.setPname("wang");
-        person.setPassword("wang");
+        Person person = personRepository.selectPasswordByPname(String.valueOf(pname));
 
         //List<Img> list = new ArrayList<Img>();
         String name = "";   //将所有图片名字用，号隔开，放在同一个字符串中
