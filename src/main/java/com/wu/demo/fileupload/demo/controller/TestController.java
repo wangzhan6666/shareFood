@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -125,10 +127,11 @@ public class TestController {
     public String upload(@RequestParam("fileName") MultipartFile[] files, @RequestParam("description") String description,
                          Model model, HttpSession session){
 
+
         Object pname = session.getAttribute("pname");
-        if (pname == null){
+        /*if (pname == null){
             return "login";
-        }
+        }*/
 
         // 要上传的目标文件存放路径
         String localPath = "D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/img";
@@ -138,9 +141,11 @@ public class TestController {
         //List<Img> list = new ArrayList<Img>();
         String name = "";   //将所有图片名字用，号隔开，放在同一个字符串中
         for (MultipartFile file : files) {
-            FileUtils.upload(file, localPath, file.getOriginalFilename());
+            //修改文件名
+            String newName = updateFileName(file);
+            FileUtils.upload(file, localPath, newName);
 
-            name += file.getOriginalFilename()+",";
+            name += newName+",";
         }
         System.out.println("name::::::::::::::::"+name);
 
@@ -169,7 +174,15 @@ public class TestController {
         return "showmess";
     }
 
-
+    //修改文件名
+    private String updateFileName(MultipartFile file) {
+        String uName = file.getOriginalFilename();
+        int index = uName.lastIndexOf(".");  //获取 . 前面有多少位数
+        String lastName = uName.substring(index,uName.length());  //文件后缀名
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String suffix = fmt.format(new Date());
+        return suffix+lastName;
+    }
 
 
     /**

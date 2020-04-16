@@ -85,6 +85,14 @@
     <script src="https://cdn.bootcss.com/popper.js/1.14.0/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+    <script type="text/javascript">
+        function test() {
+            //第二个参数必须要加new Date().getTime()才能实时读写
+            var file = new File([files[0]], new Date().getTime() + "_pic.jpg", {
+                type: files[0].type
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -129,6 +137,8 @@
     var imgBox =document.getElementsByClassName('img-box')[0];
     var willUploadFile=[];//保存待上传的文件以及相关附属信息
     document.getElementById('files').addEventListener('change',function (e) {
+
+
         var fileList = document.getElementById('files').files;
 
         if (willUploadFile.length > fileMaxCount || fileList.length>fileMaxCount || (willUploadFile.length+ fileList.length>fileMaxCount)) {
@@ -137,6 +147,7 @@
         }
         for (var i = 0; i < fileList.length; i++) {
             var f = fileList[i];//先预览图片
+
 
             var img = document.createElement('img');
             var item = document.createElement('div');
@@ -183,6 +194,7 @@
 
         var fd = new FormData();   //构造FormData对象
         fd.append('files',file);
+        // fd.append('files',file,new Data().getTime()+".jpg");
 
         var xhr = new XMLHttpRequest();   //创建对象
         xhr.open('POST', 'http://localhost:8963', true);
