@@ -1,6 +1,8 @@
 package com.wu.demo.fileupload.demo.controller;
 
+import com.wu.demo.fileupload.demo.model.Comment;
 import com.wu.demo.fileupload.demo.model.Mess;
+import com.wu.demo.fileupload.demo.repository.CommentRepository;
 import com.wu.demo.fileupload.demo.repository.MessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,8 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    /*@Autowired
-    ImgRepository imgRepository;*/
+    @Autowired
+    CommentRepository commentRepository;
     @Autowired
     MessRepository messRepository;
 
@@ -46,12 +48,30 @@ public class IndexController {
             }
             m.setNameList(list);
             m.setImglength(n.length);
-            System.out.println("n.length       "+n.length);
-            System.out.println("m.getNameList().toString()   "+m.getNameList().toString());
-            //System.out.println(""+newMesses.toString());
+
+            List<Comment> comments = commentRepository.selectCommentByMid(m.getMid());
+            /*List<Comment> comments1 = comments;
+            for (Comment c : comments1){
+                String[] n2 = c.getComment().split("~");
+
+                System.out.println("n2.toString()   "+n2.toString());
+
+                for (int i = 0; i < n2.length; i++) {
+                    System.out.println("c.getComment()     "+c.getComment());
+                    c.setComment(n2[i]);
+
+                    System.out.println("n2[i]         "+n2[i]);
+
+                    System.out.println("c.getComment()第一次哦：     "+c.getComment());
+                }
+                System.out.println("c.getComment()第二次哦：     "+c.getComment());
+            }*/
+
+            m.setCommentList(comments);
         }
 
         model.addAttribute("newMesses",messes);
+        model.addAttribute("nowName",String.valueOf(session.getAttribute("pname")));
         return "index";
     }
 

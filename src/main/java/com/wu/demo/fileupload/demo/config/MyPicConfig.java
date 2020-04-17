@@ -17,5 +17,8 @@ public class MyPicConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**").addResourceLocations("file:D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/img/");
+        registry.addResourceHandler("/css/**").addResourceLocations("file:D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/css/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("file:D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/fonts/");
+        registry.addResourceHandler("/js/**").addResourceLocations("file:D:/IDEA/save_date/FileUploadDemo-master/src/main/resources/static/js/");
     }
 }

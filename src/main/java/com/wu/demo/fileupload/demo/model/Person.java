@@ -34,6 +34,16 @@ public class Person {
     //mappedBy="author"中的author是Article中的author属性
     private Set<Mess> messes = new HashSet<>();//文章列表
 
+    //评论父节点
+    @OneToMany(mappedBy = "fatherPerson",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}
+            ,fetch=FetchType.LAZY)
+    private Set<Comment> fatherComments = new HashSet<>();//文章列表
+    // 评论子节点
+    @OneToMany(mappedBy = "childPerson",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}
+            ,fetch=FetchType.LAZY)
+    private Set<Comment> childComments = new HashSet<>();//文章列表
+
+
 
     public Person() {
     }
@@ -73,5 +83,21 @@ public class Person {
 
     public void setMesses(Set<Mess> messes) {
         this.messes = messes;
+    }
+
+    public Set<Comment> getFatherComments() {
+        return fatherComments;
+    }
+
+    public void setFatherComments(Set<Comment> fatherComments) {
+        this.fatherComments = fatherComments;
+    }
+
+    public Set<Comment> getChildComments() {
+        return childComments;
+    }
+
+    public void setChildComments(Set<Comment> childComments) {
+        this.childComments = childComments;
     }
 }

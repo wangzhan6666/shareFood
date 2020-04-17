@@ -23,6 +23,12 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
     Person selectPasswordByPname(String pname);
 
     /*
+     * @Description 根据用户ID查找用户
+     * */
+    @Query(value = "select p from Person p where p.pid=?1")
+    Person selecPersonByPid(int pid);
+
+    /*
      * @Description 注册用户
      * */
     @Modifying

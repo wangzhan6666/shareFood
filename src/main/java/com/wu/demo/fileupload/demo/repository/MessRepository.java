@@ -38,5 +38,11 @@ public interface MessRepository extends JpaRepository<Mess, Integer> {
     @Query(value = "select m from Mess m")
     List<Mess> selectAllMess();
 
+    /*
+     * @Description 根据mid查询文章
+     *
+     * */
+    @Query(value = "select m from Mess m where m.mid=?1")
+    Mess selectMessByMid(int mid);
 
 }
