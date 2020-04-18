@@ -29,7 +29,7 @@
                         <input type="hidden" name="mid" id="mid" value="" />
                         <input type="hidden" name="pid" id="pid" value="" />
                         <div class="form-group">
-                            <label for="" class="control-label">评论内容</label>
+                            <label form="" class="control-label">评论内容</label>
                             <textarea rows="10" cols="85" name="comment"  class="form-control"></textarea>
                         </div>
                         <div class="modal-footer">

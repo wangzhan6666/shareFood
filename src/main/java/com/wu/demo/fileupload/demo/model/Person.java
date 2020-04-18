@@ -43,6 +43,10 @@ public class Person {
             ,fetch=FetchType.LAZY)
     private Set<Comment> childComments = new HashSet<>();//文章列表
 
+    // 美食制作步骤
+    @OneToMany(mappedBy = "makePerson",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}
+            ,fetch=FetchType.LAZY)
+    private Set<MakeStep> makeSteps = new HashSet<>();//文章列表
 
 
     public Person() {
@@ -99,5 +103,13 @@ public class Person {
 
     public void setChildComments(Set<Comment> childComments) {
         this.childComments = childComments;
+    }
+
+    public Set<MakeStep> getMakeSteps() {
+        return makeSteps;
+    }
+
+    public void setMakeSteps(Set<MakeStep> makeSteps) {
+        this.makeSteps = makeSteps;
     }
 }

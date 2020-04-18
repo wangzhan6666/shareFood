@@ -85,19 +85,14 @@
     <script src="https://cdn.bootcss.com/popper.js/1.14.0/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-        function test() {
-            //第二个参数必须要加new Date().getTime()才能实时读写
-            var file = new File([files[0]], new Date().getTime() + "_pic.jpg", {
-                type: files[0].type
-            });
-        }
-    </script>
 </head>
 <body>
 
 <br><br><br><br><br><br><br>
 <a href="/">首页</a>
+<a href="/test2">添加文章</a>
+<a href="/toMakeStep">分享美食制作步骤</a>
+<a href="/toSeeMakeStep">查看美食制作步骤</a>
 
 <h1>图片上传Demo</h1><!--action="fileUpload"-->
 <form action="fileUpload" method="post" enctype="multipart/form-data" id="fileUploadForm">
@@ -119,12 +114,6 @@
 
 </form>
 
-
-
-
-
-<%--
-<img src="../img/1.jpg" style="width: 300px;height: 300px" />--%>
 
 </body>
 </html>

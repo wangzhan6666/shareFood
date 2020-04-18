@@ -13,10 +13,12 @@
 </head>
 <body>
 
-        <form action="/login" method="post">
+        <form action="/login" method="post"  enctype="multipart/form-data">
             用户名：<input type="text" name="pname" placeholder="请输入用户名" />
             密码：  <input type="password" name="password" placeholder="请输入密码" />
 
+            <img src="/img/20200416163820898.jpg" hidden name="img">
+            
             <a href="/toregister">注册</a>
             <button type="submit">登录</button>
         </form>

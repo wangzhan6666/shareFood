@@ -37,8 +37,11 @@ public class CommentController {
             , Model model, HttpSession session){
         String newComment = comment;
 
-        //获取该用户
         Object pname = session.getAttribute("pname");
+        if (pname == null){
+            return "login";
+        }
+        //获取该用户
         Person person = personRepository.selectPasswordByPname(String.valueOf(pname));
         Person fatherPerson = null;
         if (pid != 0){
@@ -89,8 +92,11 @@ public class CommentController {
 
     //删除评论
     @RequestMapping(value = "/deleteComment")
-    public String deleteComment(@RequestParam("cid") int cid){
-
+    public String deleteComment(@RequestParam("cid") int cid, HttpSession session){
+        Object pname = session.getAttribute("pname");
+        if (pname == null){
+            return "login";
+        }
         commentRepository.deleteByCid(cid);
         return "forward:/";
     }

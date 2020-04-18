@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 /**
  * @Classname Comment
- * @Description TODO
+ * @Description TODO    评论内容
  * @Date 2020/4/17 8:54
  * @Created by wangzhan
  */

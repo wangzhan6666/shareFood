@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +30,13 @@ public class LoginAndRegisterController {
 
     @RequestMapping(value = "/login")
     public String login(@RequestParam("pname") String pname, @RequestParam("password") String password,
-                        HttpSession session, Model model){
+                        @RequestParam("test") String test, @RequestParam("fileName") MultipartFile[] files,  HttpSession session, Model model){
+
+        System.out.println("test        "+test);
+        for (MultipartFile f : files){
+            System.out.println("f.getOriginalFilename()"+f.getOriginalFilename());
+        }
+
 
         //根据用户名查找密码
         Person person = personRepository.selectPasswordByPname(pname);

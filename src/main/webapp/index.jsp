@@ -50,8 +50,10 @@
         <%--模态框的内容--%>
         <c:import url="Modal.jsp"/>
 
-<a href="/">首页</a>
-<a href="/test2">添加文章</a>
+        <a href="/">首页</a>
+        <a href="/test2">添加文章</a>
+        <a href="/toMakeStep">分享美食制作步骤</a>
+        <a href="/toSeeMakeStep">查看美食制作步骤</a>
 
 <h1>展示页面</h1>
 
@@ -77,7 +79,7 @@
                     </c:forEach>
 
 
-                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="values(${newMesses.mid},0)" >模态框</button></td>
+                    <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="values(${newMesses.mid},0)">评论</button></td>
                 </tr>
                     <c:forEach items="${newMesses.commentList}" var="c">
 
