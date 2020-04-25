@@ -22,6 +22,7 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
     @Query(value = "select p from Person p where p.pname=?1")
     Person selectPasswordByPname(String pname);
 
+
     /*
      * @Description 根据用户ID查找用户
      * */

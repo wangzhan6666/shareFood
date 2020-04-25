@@ -22,10 +22,10 @@
 </head>
 <body>
 <br><br><br><br><br>
-<a href="/">首页</a>
+<%--<a href="/">首页</a>
 <a href="/test2">添加文章</a>
 <a href="/toMakeStep">分享美食制作步骤</a>
-<a href="/toSeeMakeStep">查看美食制作步骤</a>
+<a href="/toSeeMakeStep">查看美食制作步骤</a>--%>
 
     <c:forEach items="${list}" var="list" varStatus="l">
         <c:if test="${l.count % 2 !=0}">

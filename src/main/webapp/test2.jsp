@@ -89,16 +89,25 @@
 <body>
 
 <br><br><br><br><br><br><br>
-<a href="/">首页</a>
+<%--<a href="/">首页</a>
 <a href="/test2">添加文章</a>
 <a href="/toMakeStep">分享美食制作步骤</a>
-<a href="/toSeeMakeStep">查看美食制作步骤</a>
+<a href="/toSeeMakeStep">查看美食制作步骤</a>--%>
 
 <h1>图片上传Demo</h1><!--action="fileUpload"-->
 <form action="fileUpload" method="post" enctype="multipart/form-data" id="fileUploadForm">
     <!--    <p>选择文件: <input type="file" name="fileName"/></p>-->
 
-    <input name="description" placeholder="清添加描述" type="text" />
+    <select name="classify">
+        <option>炸</option>
+        <option>烤</option>
+        <option>煎</option>
+        <option>熬汤</option>
+        <option>煮</option>
+    </select>
+    <p></p>
+    <textarea name="description" placeholder="清添加描述">
+    </textarea>
 
     <input type="file" class="form-control" id="files"
            placeholder="Upload Multiple Files"  name="fileName" multiple></input>

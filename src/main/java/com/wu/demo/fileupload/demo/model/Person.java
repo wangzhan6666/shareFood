@@ -48,6 +48,11 @@ public class Person {
             ,fetch=FetchType.LAZY)
     private Set<MakeStep> makeSteps = new HashSet<>();//文章列表
 
+    // 收藏
+    @OneToMany(mappedBy = "scPerson",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}
+            ,fetch=FetchType.LAZY)
+    private Set<Shoucang> shoucangs = new HashSet<>();
+
 
     public Person() {
     }
@@ -111,5 +116,13 @@ public class Person {
 
     public void setMakeSteps(Set<MakeStep> makeSteps) {
         this.makeSteps = makeSteps;
+    }
+
+    public Set<Shoucang> getShoucangs() {
+        return shoucangs;
+    }
+
+    public void setShoucangs(Set<Shoucang> shoucangs) {
+        this.shoucangs = shoucangs;
     }
 }

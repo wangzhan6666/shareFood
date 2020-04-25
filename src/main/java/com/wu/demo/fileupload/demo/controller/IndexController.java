@@ -1,9 +1,14 @@
 package com.wu.demo.fileupload.demo.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.wu.demo.fileupload.demo.model.Comment;
 import com.wu.demo.fileupload.demo.model.Mess;
+import com.wu.demo.fileupload.demo.model.Person;
+import com.wu.demo.fileupload.demo.model.Shoucang;
 import com.wu.demo.fileupload.demo.repository.CommentRepository;
 import com.wu.demo.fileupload.demo.repository.MessRepository;
+import com.wu.demo.fileupload.demo.repository.PersonRepository;
+import com.wu.demo.fileupload.demo.repository.ShoucangRepository;
 import com.wu.demo.fileupload.demo.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,10 +34,18 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
+    PersonRepository personRepository;
+    @Autowired
     CommentRepository commentRepository;
     @Autowired
     MessRepository messRepository;
+    @Autowired
+    ShoucangRepository shoucangRepository;
 
+    @RequestMapping(value = "/first")
+    public String first() {
+        return "first";
+    }
     @RequestMapping(value = "/")
     public String toIndex(Model model, HttpSession session){
 
@@ -55,22 +68,6 @@ public class IndexController {
             m.setImglength(n.length);
 
             List<Comment> comments = commentRepository.selectCommentByMid(m.getMid());
-            /*List<Comment> comments1 = comments;
-            for (Comment c : comments1){
-                String[] n2 = c.getComment().split("~");
-
-                System.out.println("n2.toString()   "+n2.toString());
-
-                for (int i = 0; i < n2.length; i++) {
-                    System.out.println("c.getComment()     "+c.getComment());
-                    c.setComment(n2[i]);
-
-                    System.out.println("n2[i]         "+n2[i]);
-
-                    System.out.println("c.getComment()第一次哦：     "+c.getComment());
-                }
-                System.out.println("c.getComment()第二次哦：     "+c.getComment());
-            }*/
 
             m.setCommentList(comments);
         }
@@ -79,6 +76,36 @@ public class IndexController {
         model.addAttribute("nowName",String.valueOf(session.getAttribute("pname")));
         return "index";
     }
+
+
+    @RequestMapping(value = "/toclassify")
+    public String toclassify(@RequestParam("classify") String classify, Model model, HttpSession session){
+
+        //模糊查询
+        List<Mess> messes = messRepository.selectMessByClassify(classify);
+
+        List<Mess> newMesses = null;
+
+        for (Mess m : messes){
+            String[] n = m.getImgname().split(",");
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < n.length; i++) {
+                list.add(n[i]);
+            }
+            m.setNameList(list);
+            m.setImglength(n.length);
+
+            List<Comment> comments = commentRepository.selectCommentByMid(m.getMid());
+
+            m.setCommentList(comments);
+        }
+
+        model.addAttribute("newMesses",messes);
+        model.addAttribute("nowName",String.valueOf(session.getAttribute("pname")));
+        return "index";
+    }
+
+
 
 
 }

@@ -21,10 +21,10 @@
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<a href="/">首页</a>
+<%--<a href="/">首页</a>
 <a href="/test2">添加文章</a>
 <a href="/toMakeStep">分享美食制作步骤</a>
-<a href="/toSeeMakeStep">查看美食制作步骤</a>
+<a href="/toSeeMakeStep">查看美食制作步骤</a>--%>
 
 
     <h1>展示发布的页面</h1>

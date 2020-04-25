@@ -19,6 +19,10 @@ public class Mess {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "mid")
     private int mid;
+    
+    //类别
+    @Column(name = "classify")
+    private String classify;
 
     //存放文章内容
     @Column(name = "description")
@@ -53,12 +57,15 @@ public class Mess {
     //mappedBy="author"中的author是Article中的author属性
     private Set<Comment> comments = new HashSet<>();//评论
 
-
+    @OneToMany(mappedBy = "scmess",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.REMOVE}
+            ,fetch=FetchType.LAZY)
+    private Set<Shoucang> shoucangs = new HashSet<>();
 
     public Mess() {
     }
 
-    public Mess(String description, String imgname, int imglength) {
+    public Mess(String classify, String description, String imgname, int imglength) {
+        this.classify = classify;
         this.description = description;
         this.imgname = imgname;
         this.imglength = imglength;
@@ -70,6 +77,14 @@ public class Mess {
 
     public void setMid(int mid) {
         this.mid = mid;
+    }
+
+    public String getClassify() {
+        return classify;
+    }
+
+    public void setClassify(String classify) {
+        this.classify = classify;
     }
 
     public String getDescription() {
@@ -126,5 +141,13 @@ public class Mess {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<Shoucang> getShoucangs() {
+        return shoucangs;
+    }
+
+    public void setShoucangs(Set<Shoucang> shoucangs) {
+        this.shoucangs = shoucangs;
     }
 }

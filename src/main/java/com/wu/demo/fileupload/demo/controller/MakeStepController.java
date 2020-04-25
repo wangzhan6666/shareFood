@@ -15,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,12 +69,17 @@ public class MakeStepController {
         String step = "";
         for (int i = 0; i <= length; i++) {
             list.add(request.getParameter(String.valueOf(i)));
-            list.add(files[i].getOriginalFilename());
+            //list.add(files[i].getOriginalFilename());
 
-            FileUtils.upload(files[i], localPath, files[i].getOriginalFilename());
+            //修改文件名
+            String newName = updateFileName(files[i]);
+            FileUtils.upload(files[i], localPath, newName);
+
+            list.add(newName);
+
 
             step += request.getParameter(String.valueOf(i))+"@@";
-            step += files[i].getOriginalFilename()+"@@";
+            step += newName+"@@";
         }
 
         Object pname = session.getAttribute("pname");
@@ -90,6 +97,16 @@ public class MakeStepController {
 
         model.addAttribute("list",list);
         return "showmakestep";
+    }
+
+    //修改文件名
+    private String updateFileName(MultipartFile file) {
+        String uName = file.getOriginalFilename();
+        int index = uName.lastIndexOf(".");  //获取 . 前面有多少位数
+        String lastName = uName.substring(index,uName.length());  //文件后缀名
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String suffix = fmt.format(new Date());
+        return suffix+lastName;
     }
 
     @RequestMapping("toSeeMakeStep")
@@ -114,6 +131,17 @@ public class MakeStepController {
 
         model.addAttribute("list",list);
         return "showmakestep";
+    }
+
+
+    //美食步骤查询
+    @RequestMapping(value = "findmakestep")
+    public String findmakestep(@RequestParam("name") String name, Model model){
+
+        //模糊查询
+        List<MakeStep> makeSteps = makeStepRepository.selectMakeStepByLikeTitle(name);
+        model.addAttribute("makeSteps",makeSteps);
+        return "makesteptitle";
     }
 
 

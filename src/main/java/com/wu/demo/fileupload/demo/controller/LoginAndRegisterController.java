@@ -29,14 +29,8 @@ public class LoginAndRegisterController {
     }
 
     @RequestMapping(value = "/login")
-    public String login(@RequestParam("pname") String pname, @RequestParam("password") String password,
-                        @RequestParam("test") String test, @RequestParam("fileName") MultipartFile[] files,  HttpSession session, Model model){
-
-        System.out.println("test        "+test);
-        for (MultipartFile f : files){
-            System.out.println("f.getOriginalFilename()"+f.getOriginalFilename());
-        }
-
+    public String login(@RequestParam("pname") String pname, @RequestParam("password") String password
+            , @RequestParam("fileName") MultipartFile[] files,  HttpSession session, Model model){
 
         //根据用户名查找密码
         Person person = personRepository.selectPasswordByPname(pname);

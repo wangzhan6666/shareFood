@@ -43,6 +43,14 @@
                 window.location.href="/deleteComment?cid="+cid;
             }
         }
+
+        function toclassify(classify) {
+            window.location.href="/toclassify?classify="+classify;
+        }
+
+        function shoucang(messid) {
+            window.location.href="/shoucang?messid="+messid;
+        }
     </script>
 </head>
 <body>
@@ -50,18 +58,25 @@
         <%--模态框的内容--%>
         <c:import url="Modal.jsp"/>
 
-        <a href="/">首页</a>
+        <%--<a href="/">首页</a>
         <a href="/test2">添加文章</a>
         <a href="/toMakeStep">分享美食制作步骤</a>
-        <a href="/toSeeMakeStep">查看美食制作步骤</a>
+        <a href="/toSeeMakeStep">查看美食制作步骤</a>--%>
 
 <h1>展示页面</h1>
 
 <%--<span>${description}</span>--%>
 
+        <button onclick="toclassify('炸')"><a href="#">炸</a></button>
+        <button onclick="toclassify('烤')"><a href="#">烤</a></button>
+        <button onclick="toclassify('煎')"><a href="#">煎</a></button>
+        <button onclick="toclassify('熬汤')"><a href="#">熬汤</a></button>
+        <button onclick="toclassify('煮')"><a href="#">煮</a></button>
+
 <c:if test="${newMesses == null}">
     还没有内容呢
 </c:if>
+        ${message}
 <c:if test="${newMesses != null}">
 
             <c:forEach items="${newMesses}" var="newMesses">
@@ -78,8 +93,10 @@
                         </td>
                     </c:forEach>
 
+                    <td width="50px"></td>
 
                     <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="values(${newMesses.mid},0)">评论</button></td>
+                    <td><button class="btn btn-primary" onclick="shoucang(${newMesses.mid})">收藏</button></td>
                 </tr>
                     <c:forEach items="${newMesses.commentList}" var="c">
 
@@ -87,13 +104,14 @@
                             <c:if test="${c.fatherPerson.pname != null}">
                                 <td>${c.childPerson.pname}回复${c.fatherPerson.pname}</td>
                                 <td width="50px"></td>
-                                <td>${c.comment}</td>
+                                <td width="200px">${c.comment}</td>
                             </c:if>
                             <c:if test="${c.fatherPerson.pname == null}">
                                 <td>${c.childPerson.pname}</td>
                                 <td width="50px"></td>
-                                <td>${c.comment}</td>
+                                <td width="200px">${c.comment}</td>
                             </c:if>
+                            <td width="50px"></td>
                             <td>
                                 <c:if test="${c.childPerson.pname != nowName}">
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="values(${newMesses.mid},${c.childPerson.pid})">回复</button>

@@ -121,7 +121,7 @@ public class TestController {
     }*/
 
     @RequestMapping("fileUpload")
-    public String upload(@RequestParam("fileName") MultipartFile[] files, @RequestParam("description") String description,
+    public String upload(@RequestParam("fileName") MultipartFile[] files, @RequestParam("classify") String classify, @RequestParam("description") String description,
                          Model model, HttpSession session){
 
 
@@ -147,7 +147,7 @@ public class TestController {
         System.out.println("name::::::::::::::::"+name);
 
         //保存文章描述
-        messRepository.addMess(description,name);
+        messRepository.addMess(classify,description,name);
         //根据文章描述查找该文章的ID
         Mess mess = messRepository.selectMidByDescription(description);
         System.out.println("测试："+mess.getMid()+"   "+mess.getDescription());

@@ -29,6 +29,8 @@ public interface MakeStepRepository extends JpaRepository<MakeStep,Integer> {
      * */
     @Query(value = "select m from MakeStep m where m.title=?1")
     MakeStep selectMakeStepByTitle(String title);
+    @Query(value = "select m from MakeStep m where m.title like %?1%")
+    List<MakeStep> selectMakeStepByLikeTitle(String title);
     @Query(value = "select m from MakeStep m where m.sid=?1")
     MakeStep selectMakeStepBySid(int sid);
 
@@ -37,6 +39,7 @@ public interface MakeStepRepository extends JpaRepository<MakeStep,Integer> {
      * */
     @Query(value = "select m from MakeStep m")
     List<MakeStep> selectAllMakeStep();
+
 
 
 }

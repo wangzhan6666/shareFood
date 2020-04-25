@@ -21,8 +21,8 @@ public interface MessRepository extends JpaRepository<Mess, Integer> {
     * @Description 添加一篇文章的描述和图片名字
     * */
     @Modifying
-    @Query(value = "insert into mess(description,imgname) values(?1,?2)",nativeQuery = true)
-    void addMess(String description,String imgname);
+    @Query(value = "insert into mess(classify,description,imgname) values(?1,?2,?3)",nativeQuery = true)
+    void addMess(String classify, String description,String imgname);
 
     /*
      * @Description 根据文章描述查找文章
@@ -35,7 +35,7 @@ public interface MessRepository extends JpaRepository<Mess, Integer> {
      * @Description 查询所有的文章
      *
      * */
-    @Query(value = "select m from Mess m")
+    @Query(value = "select m from Mess m order by m.mid desc")
     List<Mess> selectAllMess();
 
     /*
@@ -44,5 +44,12 @@ public interface MessRepository extends JpaRepository<Mess, Integer> {
      * */
     @Query(value = "select m from Mess m where m.mid=?1")
     Mess selectMessByMid(int mid);
+
+    /*
+     * @Description 按照类别查询文章
+     *
+     * */
+    @Query(value = "select m from Mess m where m.classify=?1")
+    List<Mess> selectMessByClassify(String classify);
 
 }
